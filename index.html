@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.Tech Mock Test Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dark-theme">
+
+    <!-- View 1: Dashboard (Test Selection) -->
+    <div id="dashboard-view" class="view-container active">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-laptop-code"></i> Prep<span class="highlight">Simulator</span>
+            </div>
+            <button id="theme-toggle" class="icon-btn">
+                <i class="fa-solid fa-sun"></i>
+            </button>
+        </nav>
+
+        <main class="dashboard-main">
+            <header class="hero">
+                <h1>Real Exam Environment. <br>Real Results.</h1>
+                <p>Practice for your campus placements with our high-fidelity mock test simulator. Features question palettes, true-to-life timer, and performance analytics.</p>
+            </header>
+
+            <section class="test-catalog">
+                <h2 class="section-title">Available Mock Tests</h2>
+                <div class="test-grid">
+                    
+                    <div class="test-card glass">
+                        <div class="test-icon"><i class="fa-solid fa-brain"></i></div>
+                        <h3>Aptitude & Logical Reasoning</h3>
+                        <ul class="test-details">
+                            <li><i class="fa-regular fa-clock"></i> 30 Minutes</li>
+                            <li><i class="fa-solid fa-list-ol"></i> 10 Questions</li>
+                            <li><i class="fa-solid fa-building"></i> TCS & Infosys Pattern</li>
+                        </ul>
+                        <button class="btn primary-btn start-test-btn" data-testid="aptitude">Start Mock Test</button>
+                    </div>
+
+                    <div class="test-card glass">
+                        <div class="test-icon"><i class="fa-solid fa-server"></i></div>
+                        <h3>Core CS Fundamentals</h3>
+                        <ul class="test-details">
+                            <li><i class="fa-regular fa-clock"></i> 45 Minutes</li>
+                            <li><i class="fa-solid fa-list-ol"></i> 15 Questions</li>
+                            <li><i class="fa-solid fa-book"></i> OS, DBMS, Computer Networks</li>
+                        </ul>
+                        <button class="btn primary-btn start-test-btn" data-testid="corecs">Start Mock Test</button>
+                    </div>
+
+                    <div class="test-card glass">
+                        <div class="test-icon"><i class="fa-solid fa-code"></i></div>
+                        <h3>DSA & Coding MCQs</h3>
+                        <ul class="test-details">
+                            <li><i class="fa-regular fa-clock"></i> 60 Minutes</li>
+                            <li><i class="fa-solid fa-list-ol"></i> 15 Questions</li>
+                            <li><i class="fa-brands fa-amazon"></i> FAANG Pattern</li>
+                        </ul>
+                        <button class="btn primary-btn start-test-btn" data-testid="dsa">Start Mock Test</button>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- View 2: Test Simulator Interface -->
+    <div id="test-view" class="view-container">
+        <header class="test-header">
+            <div class="test-title" id="active-test-title">Mock Test Name</div>
+            <div class="timer-badge">
+                <i class="fa-regular fa-clock"></i> Time Left: <span id="time-left">00:00:00</span>
+            </div>
+        </header>
+
+        <div class="test-layout">
+            <!-- Left Side: Question Area -->
+            <div class="question-area">
+                <div class="q-header">
+                    <span class="q-number" id="q-num-label">Question 1</span>
+                    <span class="q-marks">Marks: +1, -0.25</span>
+                </div>
+                
+                <div class="q-body">
+                    <p id="q-text">Question text will appear here...</p>
+                    <div id="q-code-container" class="hidden">
+                        <pre><code id="q-code"></code></pre>
+                    </div>
+                </div>
+
+                <div class="q-options" id="q-options-container">
+                    <!-- Radio options injected by JS -->
+                </div>
+
+                <div class="q-footer">
+                    <div class="left-actions">
+                        <button class="btn action-btn bg-review" id="btn-review">Mark for Review & Next</button>
+                        <button class="btn action-btn bg-clear" id="btn-clear">Clear Response</button>
+                    </div>
+                    <div class="right-actions">
+                        <button class="btn action-btn bg-prev" id="btn-prev"><i class="fa-solid fa-angle-left"></i> Previous</button>
+                        <button class="btn action-btn bg-save" id="btn-save">Save & Next <i class="fa-solid fa-angle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Palette and Profile -->
+            <div class="sidebar">
+                <div class="candidate-profile">
+                    <img src="https://ui-avatars.com/api/?name=Candidate&background=0D8ABC&color=fff" alt="Profile" class="avatar">
+                    <div class="info">
+                        <strong>John Doe</strong>
+                        <span>B.Tech Candidate</span>
+                    </div>
+                </div>
+
+                <div class="palette-legend">
+                    <div class="legend-row">
+                        <div class="legend-item"><span class="box stat-answered" id="count-answered">0</span> Answered</div>
+                        <div class="legend-item"><span class="box stat-unanswered" id="count-unanswered">0</span> Not Answered</div>
+                    </div>
+                    <div class="legend-row">
+                        <div class="legend-item"><span class="box stat-notvisited" id="count-notvisited">0</span> Not Visited</div>
+                        <div class="legend-item"><span class="box stat-review" id="count-review">0</span> Marked for Review</div>
+                    </div>
+                </div>
+
+                <div class="palette-container">
+                    <h3>Question Palette</h3>
+                    <div class="q-grid" id="q-palette">
+                        <!-- Numbers injected by JS -->
+                    </div>
+                </div>
+
+                <button class="btn danger-btn full-width submit-btn" id="btn-submit-test">Submit Test</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View 3: Result Screen -->
+    <div id="result-view" class="view-container">
+        <div class="result-card glass">
+            <h2><i class="fa-solid fa-trophy highlight"></i> Test Submitted Successfully</h2>
+            <div class="score-circle">
+                <span id="result-score">0 / 0</span>
+                <small>Total Score</small>
+            </div>
+            
+            <div class="result-stats">
+                <div class="stat-box">
+                    <h4 id="res-attempted">0</h4>
+                    <span>Attempted</span>
+                </div>
+                <div class="stat-box">
+                    <h4 id="res-correct" class="text-success">0</h4>
+                    <span>Correct</span>
+                </div>
+                <div class="stat-box">
+                    <h4 id="res-wrong" class="text-danger">0</h4>
+                    <span>Wrong</span>
+                </div>
+                <div class="stat-box">
+                    <h4 id="res-accuracy">0%</h4>
+                    <span>Accuracy</span>
+                </div>
+            </div>
+
+            <button class="btn primary-btn" id="btn-home">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
