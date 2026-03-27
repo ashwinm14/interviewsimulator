@@ -71,6 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSubmit: document.getElementById('btn-submit-test'),
         btnHome: document.getElementById('btn-home'),
 
+        // Profile
+        candidateName: document.getElementById('candidate-name'),
+        candidateAvatar: document.getElementById('candidate-avatar'),
+
         // Stats
         cAnswered: document.getElementById('count-answered'),
         cUnanswered: document.getElementById('count-unanswered'),
@@ -301,6 +305,15 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', (e) => {
             const testId = e.target.dataset.testid;
             if (confirm("You are about to start a timed mock test. Make sure you are in a distraction-free environment. Proceed?")) {
+                let candidateName = prompt("Please enter your name:");
+                if (!candidateName || candidateName.trim() === "") {
+                    candidateName = "Candidate";
+                }
+                
+                // Update Profile UI
+                ui.candidateName.textContent = candidateName.trim();
+                ui.candidateAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(candidateName.trim())}&background=0D8ABC&color=fff`;
+
                 initializeTest(testId);
             }
         });
